@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ATS.RuCaptchaSolver</name>
+    </assembly>
+    <members>
+        <member name="T:ATS.RuCaptchaSolver.CallBackHelper">
+            <summary>
+            Вспомогательный класс для управления Callback.
+            </summary>
+        </member>
+        <member name="M:ATS.RuCaptchaSolver.CallBackHelper.PingBackAction(System.String,System.String,ATS.RuCaptchaSolver.PingBack)">
+            <summary>
+             Выполняет заданное действие с CallBack.
+            </summary>
+            <param name="captchaKey">Ключ разработчика</param>
+            <param name="url">URL адрес вашего сайта</param>
+            <param name="type">Тип действия</param>
+            <returns></returns>
+        </member>
+        <member name="M:ATS.RuCaptchaSolver.CallBackHelper.SendReport(System.String,System.String,ATS.RuCaptchaSolver.ReportType)">
+            <summary>
+            Отправляет отчет по решению капчи.
+            </summary>
+            <param name="captchaKey">Ключ разработчика</param>
+            <param name="captchaId">ID капчи</param>
+            <param name="reportType">Тип репорта</param>
+            <returns></returns>
+        </member>
+        <member name="T:ATS.RuCaptchaSolver.HandleError">
+            <summary>
+            Вспомогательный класс для обработки ответа с сервера.
+            </summary>
+        </member>
+        <member name="M:ATS.RuCaptchaSolver.HandleError.ProcessResponse(System.String,ATS.RuCaptchaSolver.ResponseData@)">
+            <summary>
+            Обрабатывает полученный ответ с сервера.
+            </summary>
+            <param name="value">Строка JSON</param>
+            <param name="data">Сформированный ответ в виде структуры.</param>
+            <returns></returns>
+        </member>
+        <member name="T:ATS.RuCaptchaSolver.PingBack">
+            <summary>
+            Действия с PingBack
+            </summary>
+        </member>
+        <member name="F:ATS.RuCaptchaSolver.PingBack.Add">
+            <summary>
+            Добавить URL
+            </summary>
+        </member>
+        <member name="F:ATS.RuCaptchaSolver.PingBack.Del">
+            <summary>
+            Удалить URL
+            </summary>
+        </member>
+        <member name="F:ATS.RuCaptchaSolver.PingBack.Get">
+            <summary>
+            Получить URL
+            </summary>
+        </member>
+        <member name="T:ATS.RuCaptchaSolver.ReportType">
+            <summary>
+            Тип репорта.
+            </summary>
+        </member>
+        <member name="F:ATS.RuCaptchaSolver.ReportType.Good">
+            <summary>
+            Капча решена верно.
+            </summary>
+        </member>
+        <member name="F:ATS.RuCaptchaSolver.ReportType.Bad">
+            <summary>
+            Капча решена неверно.
+            </summary>
+        </member>
+        <member name="T:ATS.RuCaptchaSolver.ResponseData">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:ATS.RuCaptchaSolver.ResponseData.Status">
+            <summary>
+            Статус ответа. 1 - OK, 0 - Bad
+            </summary>
+        </member>
+        <member name="P:ATS.RuCaptchaSolver.ResponseData.AnswerText">
+            <summary>
+            Текст решенной капчи
+            </summary>
+        </member>
+        <member name="P:ATS.RuCaptchaSolver.ResponseData.ErrorDescription">
+            <summary>
+            Код ошибки, доступен если статус ответа Bad
+            </summary>
+        </member>
+        <member name="T:ATS.RuCaptchaSolver.Solver">
+            <summary>
+            Основной класс для взаимодействия с API.
+            </summary>
+        </member>
+        <member name="F:ATS.RuCaptchaSolver.Solver.SimpleSolver">
+            <summary>
+            Решение обычной капчи.
+            </summary>
+        </member>
+        <member name="F:ATS.RuCaptchaSolver.Solver.TextSolver">
+            <summary>
+            Решение текстовой капчи.
+            </summary>
+        </member>
+        <member name="F:ATS.RuCaptchaSolver.Solver.ReSolver">
+            <summary>
+            Решение RE капчи.
+            </summary>
+        </member>
+        <member name="M:ATS.RuCaptchaSolver.Solver.#ctor(System.String,System.String,System.Boolean)">
+            <param name="key">Ключ разработчика</param>
+            <param name="pingBackUrl">URL для отправки ответов</param>
+            <param name="debugger">Включить логирование</param>
+        </member>
+        <member name="T:ATS.RuCaptchaSolver.Solver.SimpleCaptchaSolver">
+            <summary>
+            Решение обычной капчи.
+            </summary>
+        </member>
+        <member name="M:ATS.RuCaptchaSolver.Solver.SimpleCaptchaSolver.SolveCaptchaAuto(System.String)">
+            <summary>
+             Автоматически загружает изображение на сервер и получает ответ.
+            </summary>
+            <param name="imageUrl">URL с картинкой</param>
+        </member>
+        <member name="M:ATS.RuCaptchaSolver.Solver.SimpleCaptchaSolver.SolveCaptchaCallBack(System.String)">
+            <summary>
+             Автоматически загружает изображение на сервер и отпрвляет ответ на pingBackUrl.
+            </summary>
+            <param name="imageUrl">URL с картинкой</param>
+        </member>
+        <member name="M:ATS.RuCaptchaSolver.Solver.SimpleCaptchaSolver.SendCaptchaImage(System.String)">
+            <summary>
+            Отправляет картинку на сервер.
+            </summary>
+            <param name="imageUrl">URL с картинкой</param>
+        </member>
+        <member name="M:ATS.RuCaptchaSolver.Solver.SimpleCaptchaSolver.SolveCaptcha(System.String,System.Byte,System.Byte)">
+            <summary>
+             Решает капчу по ID.
+            </summary>
+            <param name="imageId">URL с картинкой</param>
+            <param name="retrySec">Повторный запрос через N-секунд</param>
+            <param name="retryCount">Количество попыток для решения капчи</param>
+            <returns></returns>
+        </member>
+        <member name="T:ATS.RuCaptchaSolver.Solver.TextCaptchaSolver">
+            <summary>
+            Решение текстовой капчи.
+            </summary>
+        </member>
+        <member name="M:ATS.RuCaptchaSolver.Solver.TextCaptchaSolver.SolveCaptchaAuto(System.String)">
+            <summary>
+            Автоматически загружает текст капчи сервер и получает ответ.
+            </summary>
+            <param name="text">Текстовая инструкция</param>
+        </member>
+        <member name="M:ATS.RuCaptchaSolver.Solver.TextCaptchaSolver.SolveCaptchaCallBack(System.String)">
+            <summary>
+             Загружает текст капчи сервер и отпрвляет ответ на pingBackUrl.
+            </summary>
+            <param name="text">Текстовая инструкция</param>
+        </member>
+        <member name="M:ATS.RuCaptchaSolver.Solver.TextCaptchaSolver.SendCaptchaText(System.String)">
+            <summary>
+            Загружает текст капчи сервер.
+            </summary>
+            <param name="text">Текстовая инструкция</param>
+            <returns></returns>
+        </member>
+        <member name="M:ATS.RuCaptchaSolver.Solver.TextCaptchaSolver.SolveCaptcha(System.String,System.Byte,System.Byte)">
+            <summary>
+            Решает капчу по ID.
+            </summary>
+            <param name="textId">ID текста капчи</param>
+            <param name="retrySec">Повторный запрос через N-секунд</param>
+            <param name="retryCount">Количество попыток для решения капчи</param>
+            <returns></returns>
+        </member>
+        <member name="T:ATS.RuCaptchaSolver.Solver.ReCaptchaSolver">
+            <summary>
+            Решение RE капчи.
+            </summary>
+        </member>
+        <member name="M:ATS.RuCaptchaSolver.Solver.ReCaptchaSolver.SolveCaptchaAuto(System.String,System.String)">
+            <summary>
+            Автоматически загружает страницу капчи сервер и получает ответ.
+            </summary>
+            <param name="googleKey">Значение параметра k или data-sitekey, которое вы нашли в коде страницы</param>
+            <param name="url">Полный URL страницы, на которой вы решаете ReCaptcha V2</param>
+            <returns></returns>
+        </member>
+        <member name="M:ATS.RuCaptchaSolver.Solver.ReCaptchaSolver.SolveCaptchaCallBack(System.String,System.String,System.Byte)">
+            <summary>
+             Загружает страницу капчи сервер и отпрвляет ответ на pingBackUrl.
+            </summary>
+            <param name="googleKey">Значение параметра k или data-sitekey, которое вы нашли в коде страницы</param>
+            <param name="url">Полный URL страницы, на которой вы решаете ReCaptcha V2</param>
+            <param name="invis">Определяет тип капчи. 1 - невидимая, 0 - видимая</param>
+            <returns></returns>
+        </member>
+        <member name="M:ATS.RuCaptchaSolver.Solver.ReCaptchaSolver.SendCaptchaData(System.String,System.String,System.Byte)">
+            <summary>
+            Загружает страницу капчи на сервер.
+            </summary>
+            <param name="googleKey">Значение параметра k или data-sitekey, которое вы нашли в коде страницы</param>
+            <param name="url">Полный URL страницы, на которой вы решаете ReCaptcha V2</param>
+            <param name="invis">Определяет тип капчи. 1 - невидимая, 0 - видимая</param>
+            <returns></returns>
+        </member>
+        <member name="M:ATS.RuCaptchaSolver.Solver.ReCaptchaSolver.SolveCaptcha(System.String,System.Byte,System.Byte)">
+            <summary>
+            Решает капчу по ID.
+            </summary>
+            <param name="reId">ID загруженной капчи</param>
+            <param name="retrySec">Повторный запрос через N-секунд</param>
+            <param name="retryCount">Количество попыток для решения капчи</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

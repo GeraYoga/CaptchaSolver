@@ -1,26 +1,30 @@
-﻿using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using Newtonsoft.Json.Linq;
 
 namespace ATS.RuCaptchaSolver
 {
+    /// <summary>
+    /// Вспомогательный класс для обработки ответа с сервера.
+    /// </summary>
     public static class HandleError
     {
-        private static IEnumerable<string> GetValue(this string str) => str.Split('|');
-
-        public static bool IsResponseOk(string response, out string value)
+        /// <summary>
+        /// Обрабатывает полученный ответ с сервера.
+        /// </summary>
+        /// <param name="value">Строка JSON</param>
+        /// <param name="data">Сформированный ответ в виде структуры.</param>
+        /// <returns></returns>
+        public static bool ProcessResponse(string value, out ResponseData data)
         {
-            var responseArr = response.GetValue();
+            JObject arrObj = JObject.Parse(value);
             
-            if (responseArr.First() != "OK")
+            data = new ResponseData
             {
-                value = string.Empty;
-                return false;
-                
-            }
-            
-            value = response.GetValue().Last();
-            return true;
+                Status = (string) arrObj["status"], 
+                AnswerText = (string) arrObj["request"],
+                ErrorDescription = (string) arrObj["error_text"]
+            };
+
+            return data.Status == "1";
         }
     }
 }

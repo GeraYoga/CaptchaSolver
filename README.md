@@ -43,4 +43,4 @@ public static void Main(string[] args)
 
 
 
-<i>Всегда хотел сделать красивый README.md 🐰<i/>
+<i>Больше информации - [WIKI](https://github.com/GeraYoga/CaptchaSolver/wiki)<i/>
